@@ -1,15 +1,24 @@
-
-import React from 'react';
-import { HeaderContainer, HeaderLogo } from './style';
-
+import React from "react";
+import { HeaderButton, HeaderButtonContainer, HeaderContainer, HeaderGrid, HeaderLogo,HeaderMenuItem, HeaderMenuItemGrid } from "./style";
 
 const Header = () => {
   return (
     <HeaderContainer>
-      <HeaderLogo>BabySym</HeaderLogo>
+      <HeaderGrid>
+        <HeaderLogo>BabySym</HeaderLogo>
+        <HeaderMenuItemGrid>
+          <HeaderMenuItem>Home</HeaderMenuItem>
+          <HeaderMenuItem>Search</HeaderMenuItem>
+          <HeaderMenuItem>Custom collections</HeaderMenuItem>
+          <HeaderMenuItem>Votes</HeaderMenuItem>
+        </HeaderMenuItemGrid>
+        <HeaderButtonContainer>
+        <HeaderButton>Connect Wallet</HeaderButton>
+        </HeaderButtonContainer>
+       
+      </HeaderGrid>
     </HeaderContainer>
   );
 };
 
 export default Header;
-

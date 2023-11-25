@@ -1,11 +1,13 @@
 .App {
   text-align: center;
-  background-image: url("https://c0.wallpaperflare.com/preview/789/637/166/backlit-chiemsee-dawn-desktop-backgrounds.jpg");
+  background-image: url("./assets/desktop_background.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  width: 100vw;
   height: 100vh;
   font-family: Poppins, sans-serif;
+  box-sizing: border-box
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
