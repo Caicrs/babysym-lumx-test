@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "jsx": "react",
+      "outDir": "build",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "module": "esnext",
+      "target": "es5",
+      "lib": ["es6", "dom"],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "rootDir": "src",
+    }
+  }
