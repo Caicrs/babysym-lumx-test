@@ -30,6 +30,7 @@ const Homepage: React.FC = () => {
           <ButtonContainer>
             <ButtonSearch>Search now</ButtonSearch>
           </ButtonContainer>
+
           <Analytics>
             <AnalyticItem>
               <AnalyticTitle>10K</AnalyticTitle>
@@ -40,7 +41,7 @@ const Homepage: React.FC = () => {
               <AnalyticTitle>32K</AnalyticTitle>
               <AnalyticDescription>Auction</AnalyticDescription>
             </AnalyticItem>
-            <Line/>
+            <Line />
             <AnalyticItem>
               <AnalyticTitle>42K</AnalyticTitle>
               <AnalyticDescription>Artists</AnalyticDescription>

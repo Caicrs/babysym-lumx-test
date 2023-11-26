@@ -10,6 +10,10 @@ export const HomepageContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
+    @media (max-width: 1000px) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
 
@@ -18,6 +22,9 @@ export const LeftSide = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0 64px;
+  @media (max-width: 1000px) {
+    align-items: center;
+  }
 `;
 
 export const RightSide = styled.div``;
@@ -28,6 +35,9 @@ export const WhiteTitle = styled.div`
   font-size: 32px;
   font-weight: 700;
   text-align: center;
+  @media (max-width: 1000px) {
+    font-size: 22px;
+  }
 `;
 
 export const PurpleTitle = styled.div`
@@ -36,6 +46,13 @@ export const PurpleTitle = styled.div`
   font-size: 52px;
   font-weight: 700;
   text-align: center;
+  @media (max-width: 800px) {
+    font-size: 30px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 42px;
+    text-align: left;
+  }
 `;
 
 export const PurpleDescription = styled.div`
@@ -45,6 +62,9 @@ export const PurpleDescription = styled.div`
   text-align: left;
   font-weight: 300;
   padding-top: 1rem;
+  @media (max-width: 1000px) {
+    text-align: center;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -77,6 +97,9 @@ export const Analytics = styled.div`
   justify-content: space-between;
   gap: 22px;
   align-items: center;
+  @media (max-width: 1000px) {
+    padding-top: 24px;
+  }
 `;
 
 export const AnalyticItem = styled.div`
@@ -89,6 +112,9 @@ export const AnalyticTitle = styled.div`
   font-family: "Poppins", sans-serif;
   font-size: 32px;
   font-weight: 700;
+  @media (max-width: 1024px) {
+    font-size: 28px;
+  }
 `;
 
 export const AnalyticDescription = styled.div`
@@ -96,6 +122,9 @@ export const AnalyticDescription = styled.div`
   font-family: "Poppins", sans-serif;
   font-size: 12px;
   font-weight: 500;
+  @media (max-width: 1024px) {
+    font-size: 10px;
+  }
 `;
 
 export const Line = styled.div`
@@ -105,10 +134,18 @@ export const Line = styled.div`
 `;
 
 export const ImageAsset = styled.img`
-  height: 35rem;
+  height: 30rem;
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
   &:hover {
     transform: scale(1.05);
+  }
+  @media (max-width: 1024px) {
+    height: 22rem;
+    padding-top: 2rem;
+  }
+  @media (max-width: 400px) {
+    height: 20rem;
+    padding-top: 2rem;
   }
 `;
