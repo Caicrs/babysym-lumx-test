@@ -1,11 +1,19 @@
-import React from 'react';
-import './App.css';
-import Header from './components/general/Header/Header';
+import React from "react";
+import "./App.css";
+import DefaultRoutes from "./routes";
+import { BrowserRouter } from "react-router-dom";
+import Header from "./components/general/Header/Header";
+import { GeneralProvider } from "./contexts/GeneralContext";
 
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <BrowserRouter>
+        <GeneralProvider>
+          <Header />
+          <DefaultRoutes />
+        </GeneralProvider>
+      </BrowserRouter>
     </div>
   );
 }
