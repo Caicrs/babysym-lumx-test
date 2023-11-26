@@ -7,6 +7,11 @@ export const SearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
+  width: 100%;
+  @media (max-width: 700px) {
+    padding: 0px 22px;
+    box-sizing: border-box;
+  }
 `;
 
 export const SearchInputContainer = styled.div`
@@ -17,6 +22,10 @@ export const SearchInputContainer = styled.div`
   padding: 10px 28px;
   border-radius: 12px;
   background-color: rgba(238, 237, 237, 0.15);
+  @media (max-width: 700px) {
+    box-sizing: border-box;
+    width: 100%;
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -26,11 +35,19 @@ export const SearchInput = styled.input`
   color: white;
   font-size: 18px;
   width: 100%;
+  font-weight: 200;
   min-width: 500px;
   &::placeholder {
     color: #9f8fc1;
     opacity: 0.7;
     font-weight: 200;
+  }
+  @media (max-width: 700px) {
+    min-width: 0px;
+    font-size: 12px;
+    &::placeholder {
+      font-size: 12px;
+    }
   }
 `;
 

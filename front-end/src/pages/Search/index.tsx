@@ -10,7 +10,7 @@ const Search: React.FC = () => {
           className="fa fa-search"
           aria-hidden="true"
         ></i>
-        <SearchInput placeholder="Enter the contract address of the chosen collection" />
+        <SearchInput placeholder="Enter the collection contract address" />
       </SearchInputContainer>
       <ButtonSearch>Search</ButtonSearch>
     </SearchContainer>

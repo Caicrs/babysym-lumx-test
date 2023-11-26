@@ -91,11 +91,14 @@ export const HeaderButton = styled.button`
 
 export const HeaderGridMobile = styled.div`
   width: 1280px;
-  padding: 20px;
+  padding: 20px 64px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-items: center;
+  @media (max-width: 435px) {
+    padding: 20px;
+  }
   @media (min-width: 1000px) {
     display: none;
     visibility: hidden;
