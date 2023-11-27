@@ -4,6 +4,7 @@ import DefaultRoutes from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/general/Header/Header";
 import { GeneralProvider } from "./contexts/GeneralContext";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
