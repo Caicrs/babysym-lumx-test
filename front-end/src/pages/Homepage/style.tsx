@@ -7,10 +7,12 @@ export const HomepageContainer = styled.div`
   height: 100%;
   > div {
     width: 1280px;
+    margin-top: 15%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     @media (max-width: 1000px) {
+      margin-top: 25%;
       display: flex;
       flex-direction: column;
     }
