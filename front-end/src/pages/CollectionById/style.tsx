@@ -80,3 +80,52 @@ export const CustomCollectionButton = styled.div`
     background: #7879f1;
   }
 `;
+
+// GRID NFTS
+
+export const ListNFTContainer = styled.div`
+  padding: 42px 0;
+`;
+
+export const CardNFTContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(238, 237, 237, 0.15);
+  background: #2b2b2b;
+`;
+
+export const CardNFTImageContainer = styled.div`
+  box-sizing: border-box;
+  height: fit-content;
+  background: red;
+  border-radius: 16px 16px 0 0;
+`;
+
+export const CardNFTDataContainer = styled.div`
+  padding: 22px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+export const CardNFTTitle = styled.div`
+  text-align: left;
+  color: white;
+  font-family: "Radio Canada", sans-serif;
+  font-size: 16px;
+  @media (max-width: 1000px) {
+    font-size: 14px;
+  }
+`;
+
+export const CardNFTData = styled.div`
+  text-align: left;
+  color: white;
+  font-family: "Radio Canada", sans-serif;
+  font-size: 16px;
+  @media (max-width: 1000px) {
+    font-size: 12px;
+  }
+`;
