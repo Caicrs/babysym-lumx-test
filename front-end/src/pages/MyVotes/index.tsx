@@ -6,8 +6,9 @@ import {
 import ProductCard from "../../components/general/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useGeneral } from "../../contexts/GeneralContext";
 
-const MyCustomCollection: React.FC = () => {
+const MyVotes: React.FC = () => {
   const data = [
     {
       id: 1,
@@ -53,7 +54,7 @@ const MyCustomCollection: React.FC = () => {
     <>
       <CollectionContainer>
         <div>
-          <h1>My Collections</h1>
+          <h1>My Votes</h1>
           <ListNFTContainer>
             <Row xs={1} md={2} lg={3} className="g-4">
               {data.map((item) => (
@@ -72,4 +73,4 @@ const MyCustomCollection: React.FC = () => {
   );
 };
 
-export default MyCustomCollection;
+export default MyVotes;
