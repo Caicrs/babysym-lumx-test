@@ -10,10 +10,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <GeneralProvider>
-          <Header />
-          <DefaultRoutes />
-        </GeneralProvider>
+          <GeneralProvider>
+            <Header />
+            <DefaultRoutes />
+          </GeneralProvider>
       </BrowserRouter>
     </div>
   );
