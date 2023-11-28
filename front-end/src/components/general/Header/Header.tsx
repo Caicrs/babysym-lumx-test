@@ -15,9 +15,10 @@ import {
 } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useGeneral } from "../../../contexts/GeneralContext";
+import LogoutIcon from "../../../assets/logout-icon";
 
 const Header = () => {
-const { isOpenState, setIsOpen } = useGeneral();
+  const { isOpenState, setIsOpen, wallet,connectWallet } = useGeneral();
 
   const openSideMenu = () => {
     setIsOpen(true);
@@ -51,7 +52,13 @@ const { isOpenState, setIsOpen } = useGeneral();
           </HeaderMenuItem>
         </HeaderMenuItemGrid>
         <HeaderButtonContainer>
-          <HeaderButton>Connect Wallet</HeaderButton>
+          {wallet.address ? (
+            <HeaderButton isDisabled>
+              {wallet.address.slice(0, 16)}...
+            </HeaderButton>
+          ) : (
+            <HeaderButton onClick={connectWallet}>Connect Wallet</HeaderButton>
+          )}
         </HeaderButtonContainer>
       </HeaderGrid>
       {/* Mobile version */}
@@ -80,4 +87,3 @@ const { isOpenState, setIsOpen } = useGeneral();
 };
 
 export default Header;
-

@@ -64,14 +64,20 @@ export const HeaderMenuItem = styled.div`
 export const HeaderButtonContainer = styled.div`
   width: 100%;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
   font-size: 14px;
   color: white;
 `;
 
-export const HeaderButton = styled.button`
+interface ButtonProps {
+  isDisabled?: boolean;
+}
+
+export const HeaderButton = styled.button<ButtonProps>`
   width: fit-content;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   color: white;
   background: #7879f1;
   padding: 12px 24px;
@@ -79,12 +85,10 @@ export const HeaderButton = styled.button`
   border: none;
   font-weight: 600;
   transition: 0.3s;
-  cursor: pointer;
-  &:hover {
-    color: white;
-    outline: 1px solid white;
-    background: transparent;
-  }
+  cursor: not-allowed;
+  ${({ isDisabled }) =>
+    !isDisabled &&
+    "cursor: pointer;&:hover{color: white;outline: 1px solid white;background: transparent;}"}
 `;
 
 // MOBILE COMPONENTS
