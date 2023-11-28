@@ -1,9 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  CardNFTData,
-  CardNFTDataContainer,
-  CardNFTImageContainer,
-  CardNFTTitle,
   CollectionContainer,
   CollectionDataContainer,
   CollectionItem,
@@ -19,7 +15,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useGeneral } from "../../contexts/GeneralContext";
-import ModalBase from "../../components/modalBase";
+
 
 const CollectionById: React.FC = () => {
   const { modalOpened, setIsModalOpened } = useGeneral();
@@ -63,6 +59,28 @@ const CollectionById: React.FC = () => {
       owner: "0x0000001",
     },
   ];
+  const [selectedNFTs, setSelectedNFTs] = useState([]);
+
+  const toggleCardSelection = (cardId: number) => {
+    if (selectedNFTs.includes(cardId)) {
+      setSelectedNFTs(selectedNFTs.filter((id) => id !== cardId));
+      return
+    }
+    setSelectedNFTs([...selectedNFTs, cardId]);
+  }
+
+  const isNFTSelected = (cardId: number) => {
+    return selectedNFTs.includes(cardId);
+  }
+
+  /*
+  const createCollection = async () => {
+    const { data } = await babySymApi.post("/collection", {
+      nfts: selectedNFTs
+    })
+  }
+  */
+
   return (
     <>
       <CollectionContainer>
@@ -71,7 +89,7 @@ const CollectionById: React.FC = () => {
             <CollectionTitle>Collection</CollectionTitle>
             <CollectionItem>Address: address-here</CollectionItem>
             <CollectionItem>Name: Name-here</CollectionItem>
-            <CollectionItem>Size: 4 NFT's</CollectionItem>
+            <CollectionItem>Size: {selectedNFTs.length} NFT's</CollectionItem>
             <CollectionItem>
               Description: Lorem Ipsum é simplesmente uma simulação de texto da
               indústria tipográfica e de impressos, e vem sendo utilizado desde
@@ -105,6 +123,8 @@ const CollectionById: React.FC = () => {
                       imageSrc={item.image}
                       title={item.name}
                       price={item.price}
+                      toggleCardSelection={() => toggleCardSelection(item.id)}
+                      isSelected={isNFTSelected(item.id)}
                     />
                   </Col>
                 ))}

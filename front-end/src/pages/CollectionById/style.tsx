@@ -10,6 +10,16 @@ export const CollectionContainer = styled.div`
     @media (max-width: 435px) {
       padding: 80px 20px;
     }
+
+    > h1 {
+      font-size: 48px;
+      font-weight: 700;
+      text-align: left;
+      color: white;
+      @media (max-width: 435px) {
+        font-size: 38px;
+      }
+    }
   }
 `;
 
@@ -51,6 +61,7 @@ export const CustomCollectionDualItem = styled.div`
   display: flex;
   gap: 12px;
   align-items: center;
+  padding: 0.5rem 0 0 0;
   > div {
     width: 100%;
   }
@@ -60,7 +71,6 @@ export const CustomCollectionButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  padding: 22px 0 0 0;
 `;
 
 export const CustomCollectionButton = styled.div`
