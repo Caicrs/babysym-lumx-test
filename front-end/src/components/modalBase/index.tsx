@@ -25,7 +25,7 @@ const ModalContainer = styled.div<ModalContainerProps>`
     isOpen ? "blur(6px) saturate(180%)" : "blur(0px) saturate(180%)"};
   z-index: 999;
   -webkit-backdrop-filter: ${({ isOpen }) =>
-  isOpen ? "blur(6px) saturate(180%)" : "blur(0px) saturate(180%)"};
+    isOpen ? "blur(6px) saturate(180%)" : "blur(0px) saturate(180%)"};
 `;
 
 const ModalContainer2 = styled.div<ModalProps>`
@@ -38,29 +38,51 @@ const ModalContainer2 = styled.div<ModalProps>`
 
 const ModalContent = styled.div`
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
   padding: 12px 22px;
   border-radius: 6px;
   background: white;
   color: black;
+  @media (min-width: 800px) {
+    width: 580px;
+  }
 `;
 
 const ModalCloseIcon = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  > svg {
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  > div {
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 600;
+  }
 `;
 
 interface ModalProps {
+  title: string;
   isOpen: boolean;
   onClose: () => void;
   children?: React.ReactNode;
 }
 
-const ModalBase = ({ isOpen, onClose, children }: ModalProps) => {
+const ModalBase = ({ title, isOpen, onClose, children }: ModalProps) => {
   return (
     <ModalContainer isOpen={isOpen}>
       <ModalContent>
         <ModalCloseIcon>
+          <div>{title}</div>
           <CloseIcon onClose={onClose} />
         </ModalCloseIcon>
         {children}
