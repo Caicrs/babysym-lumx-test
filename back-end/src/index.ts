@@ -1,22 +1,37 @@
-// src/index.ts
-import express, { Request, Response } from 'express';
-import ipfsClient from 'ipfs-http-client';
+import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+import dotenv from "dotenv";
+import { Request, Response } from "express";
+import ipfs from "ipfs-http-client"; // Assuming you have ipfs imported
+import ipfsRoutes from "./routes/ipfsRoutes";
+import cors from "cors";
+
+dotenv.config(); // Load environment variables from .env file
+
 
 const app = express();
-const ipfs = ipfsClient({ host: 'localhost', port: 5001, protocol: 'http' });
+app.use(express.json());
+app.use(cors());
+// Swagger setup
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "BabySym API",
+      version: "1.0.0",
+      description: "This is the API documentation for the BabySym application.",
+    },
+  },
+  apis: ["src/routes/ipfsRoutes.ts"],
+};
 
-app.get('/ipfs/:hash', async (req: Request, res: Response) => {
-  const { hash } = req.params;
 
-  try {
-    const fileBuffer = await ipfs.cat(hash);
-    const data = fileBuffer.toString();
-    res.json({ data });
-  } catch (error) {
-    console.error('Error fetching data from IPFS:', error);
-    res.status(500).json({ error: 'Error fetching data from IPFS' });
-  }
-});
+
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use("/ipfs", ipfsRoutes);
 
 const port = 3000;
 app.listen(port, () => {
