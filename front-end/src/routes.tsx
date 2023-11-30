@@ -14,7 +14,7 @@ const DefaultRoutes = () => {
       <Route path="/search" element={<Search />} />
       <Route path="/collection/:id" element={<CollectionById />} />
       <Route
-        path="/customized-collection/:id"
+        path="/customized-collection/:id/:name"
         element={<CustomizedCollectionById />}
       />
       <Route
