@@ -6,3 +6,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.accordion{
+  --bs-accordion-bg: #7879f1 !important;
+  --bs-accordion-active-bg: #7879f1 !important;
+}
+
+.accordion-body{
+  color: white !important;
+}
+
+.accordion-button{
+  color: white !important;
+}
+
