@@ -38,10 +38,15 @@ const InputContainer = styled.div`
 const Link = styled.div`
   width: 100%;
   text-align: left;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Icon = styled.div<SubmodalShareLinkProps>`
-  width: fit-content;
+   width:20%;
+  text-align: right;
   > i {
     color: #7879f1;
     font-size: 18px;
@@ -53,7 +58,9 @@ const Icon = styled.div<SubmodalShareLinkProps>`
     `}
 `;
 
-const SubmodalShareLink: React.FC<SubmodalShareLinkProps> = () => {
+const SubmodalShareLink: React.FC<SubmodalShareLinkProps> = ({
+  link,
+}: SubmodalShareLinkProps) => {
   const [isCopied, setIsCopied] = useState(false);
   const copyToClipboard = async (text: string) => {
     try {
@@ -68,12 +75,8 @@ const SubmodalShareLink: React.FC<SubmodalShareLinkProps> = () => {
   return (
     <>
       <SubmodalShareLinkContainer>
-        <InputContainer
-          onClick={() =>
-            copyToClipboard("https://www.babysym.com.br/collection/1")
-          }
-        >
-          <Link>https://www.babysym.com.br/collection/1</Link>
+        <InputContainer onClick={() => copyToClipboard(link)}>
+          <Link>{link}</Link>
           <Icon isCopied={isCopied}>
             {isCopied ? "Copied!" : <i className="fa fa-copy"></i>}
           </Icon>
