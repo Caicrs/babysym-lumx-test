@@ -3,13 +3,16 @@ import React from "react";
 interface StarProps {
   isFilled: boolean;
   props?: React.SVGProps<SVGSVGElement>;
+  onChange?: () => void;
 }
 
 const StarOutlined = ({
   isFilled,
   props,
+  onChange
 }: StarProps) => (
   <svg
+    onClick={() => onChange()}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     width={36}
