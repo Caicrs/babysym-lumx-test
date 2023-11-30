@@ -33,7 +33,7 @@ app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/ipfs", ipfsRoutes);
 
-const port = 3000;
+const port = 3001;
 app.listen(port, () => {
   console.log(`Express server running at http://localhost:${port}`);
 });

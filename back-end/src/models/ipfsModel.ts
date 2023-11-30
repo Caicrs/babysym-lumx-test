@@ -49,7 +49,6 @@ export function getObjectByKey(
           // Call the function to get the data from the IPFS URL
           getDataFromCID(data?.Metadata?.cid)
             .then((data) => {
-              console.log(data);
               resolve(data);
             })
             .catch((error) => {

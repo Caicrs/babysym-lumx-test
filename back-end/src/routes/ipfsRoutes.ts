@@ -73,7 +73,9 @@ router.put(
  *          type: object
  *          properties:
  *            Body:
- *              type: object
+ *              type: array
+ *              items:
+ *                type: object
  *            Bucket:
  *              type: string
  *            Key:
@@ -95,101 +97,105 @@ router.put(
 
 /**
  * @swagger
- * /ipfs/custom-collections/{walletAddress}/{bucket}:
+ * /ipfs/custom-collections/{walletAddress}/{bucket}/{collectionName}:
  *  get:
  *    tags:
  *      - IPFS
- *    description: Get custom collections by wallet address, with an optional bucket parameter
+ *    description: Get collection data by address using moralis API
  *    parameters:
  *      - in: path
  *        name: walletAddress
  *        schema:
  *          type: string
  *        required: true
- *        description: Get collection data by address using moralis API
+ *        description: Wallet address
  *      - in: path
  *        name: bucket
  *        schema:
  *          type: string
  *        required: true
  *        description: Optional bucket parameter
+ *      - in: path
+ *        name: collectionName
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: Collection name
  *    responses:
  *      '200':
  *        description: Custom collections by wallet address
  *      '500':
  *        description: Error fetching custom collections by wallet address
- *
  */
 router.get(
-  "/custom-collections/:walletAddress/:bucket",
+  "/custom-collections/:walletAddress/:bucket/:collectionName",
   customCollectionController.getDataByWalletAddress
 );
 
 /**
  * @swagger
- * /ipfs/votes/{walletAddress}:
+ * /ipfs/votes:
  *  put:
  *    tags:
  *      - IPFS
- *    description: Create/Update a vote, if the user doenst have a bucket it will create one too.
+ *    description: Create/Update a vote, if the user doesn't have a bucket it will create one too.
  *    parameters:
  *      - in: body
  *        name: data
  *        schema:
  *          type: object
  *          properties:
- *            Body:
+ *            Comment:
  *              type: object
- *            Bucket:
+ *            Vote:
+ *              type: number
+ *            Collection_contract_address:
  *              type: string
- *            Key:
+ *            VoterWallet:
  *              type: string
- *            Tagging:
- *              type: string
- *        description: Vote by wallet address
+ *        description: Custom Collections by wallet address
  *    responses:
  *      '200':
  *        description: Vote by wallet address
  *      '500':
- *        description: Error making you vote by wallet address
+ *        description: Error making your vote by wallet address
  *
  */
 router.put(
-  "/votes/:walletAddress",
-  customCollectionController.createDataByWallet
+  "/votes",
+  customCollectionController.createVoteByWallet
 );
 
 /**
  * @swagger
- * /ipfs/votes/{walletAddress}/{bucket}:
+ * /ipfs/votes/{bucket}/{collectionAddress}:
  *  get:
  *    tags:
  *      - IPFS
  *    description: Create/Update a custom collection, if the user doenst have a bucket it will create one too.
  *    parameters:
  *      - in: path
- *        name: walletAddress
- *        schema:
- *          type: string
- *        required: true
- *        description: Get collection data by address using moralis API
- *      - in: path
  *        name: bucket
  *        schema:
  *          type: string
  *        required: true
  *        description: Optional bucket parameter
+ *      - in: path
+ *        name: collectionAddress
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: Collection name
  *    responses:
  *      '200':
- *        description: Custom collections by wallet address
+ *        description: Votess by wallet address
  *      '500':
- *        description: Error fetching custom collections by wallet address
+ *        description: Error fetching votes by wallet address
  *
  */
 router.get(
-  "/votes/:walletAddress/:bucket",
-  customCollectionController.getDataByWalletAddress
+  "/votes/:bucket/:collectionAddress",
+  customCollectionController.getVotesByCollectionAddress
 );
-
 
 export default router;
