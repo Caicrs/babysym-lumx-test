@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CollectionContainer,
   CollectionDataContainer,
@@ -10,57 +10,34 @@ import {
   CustomCollectionDualItem,
   ListNFTContainer,
 } from "../CollectionById/style";
+import Accordion from "react-bootstrap/Accordion";
 import ProductCard from "../../components/general/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useGeneral } from "../../contexts/GeneralContext";
-import { VoteContainer, VoteStarsContainer } from "./style";
+import {
+  CommentContainer,
+  CommentSubContainer,
+  VoteContainer,
+  VoteStarsContainer,
+} from "./style";
 import StarOutlined from "../../assets/star-outlined";
+import { useParams } from "react-router-dom";
+import { useApi } from "../../contexts/apiContext";
+import { MoralisNFT } from "../../models/moralis";
+import { SearchInput, SearchInputContainer } from "../Search/style";
+import { CreateVote } from "../../models/apiModels";
 
 const CustomizedCollectionById: React.FC = () => {
-  const { modalOpened, setIsModalOpened } = useGeneral();
-  const data = [
-    {
-      id: 1,
-      name: "NFT 1",
-      description:
-        "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI",
-      image:
-        "https://cdn.leonardo.ai/users/9b7e579a-648c-4061-ae4f-15b3104ab797/generations/24562372-515c-4f3b-b54d-eb8f7b13edd5/variations/Default_Jesus_walking_on_the_surface_of_water_in_a_storm_and_i_0_24562372-515c-4f3b-b54d-eb8f7b13edd5_1.jpg?w=512",
-      price: 0.1,
-      owner: "0x0000000",
-    },
-    {
-      id: 2,
-      name: "NFT 2",
-      description:
-        "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI",
-      image: "https://picsum.photos/200/300",
-      price: 0.1,
-      owner: "0x0000001",
-    },
-    {
-      id: 3,
-      name: "NFT 3",
-      description:
-        "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI",
-      image:
-        "https://cdn.leonardo.ai/users/9b7e579a-648c-4061-ae4f-15b3104ab797/generations/24562372-515c-4f3b-b54d-eb8f7b13edd5/variations/Default_Jesus_walking_on_the_surface_of_water_in_a_storm_and_i_0_24562372-515c-4f3b-b54d-eb8f7b13edd5_1.jpg?w=512",
-      price: 0.1,
-      owner: "0x0000000",
-    },
-    {
-      id: 4,
-      name: "NFT 4",
-      description:
-        "Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI",
-      image: "https://picsum.photos/200/300",
-      price: 0.1,
-      owner: "0x0000001",
-    },
-  ];
-
+  const { id, name } = useParams();
+  const {
+    getCustomCollectionData,
+    nftCollectionSearched,
+    votes,
+    createVoteCollection,
+  } = useApi();
   const [selectedNFTs, setSelectedNFTs] = useState([]);
+  const [comment, setComment] = useState<string>("");
+  const [voteNumber, setVoteNumber] = useState<number>(0);
 
   const toggleCardSelection = (cardId: number) => {
     if (selectedNFTs.includes(cardId)) {
@@ -74,14 +51,13 @@ const CustomizedCollectionById: React.FC = () => {
     return selectedNFTs.includes(cardId);
   };
 
-  const votes = 4;
-  /*
-  const createCollection = async () => {
-    const { data } = await babySymApi.post("/collection", {
-      nfts: selectedNFTs
-    })
-  }
-  */
+  useEffect(() => {
+    if (id) {
+      console.log("called 1");
+      console.log(id, name);
+      getCustomCollectionData(id, name);
+    }
+  }, [id]);
 
   return (
     <>
@@ -89,20 +65,21 @@ const CustomizedCollectionById: React.FC = () => {
         <div>
           <CollectionDataContainer>
             <CollectionTitle>Collection</CollectionTitle>
-            <CollectionItem>Address: address-here</CollectionItem>
-            <CollectionItem>Name: Name-here</CollectionItem>
-            <CollectionItem>Size: {selectedNFTs.length} NFT's</CollectionItem>
             <CollectionItem>
-              Description: Lorem Ipsum é simplesmente uma simulação de texto da
-              indústria tipográfica e de impressos, e vem sendo utilizado desde
-              o século XVI, quando um impressor desconhecido pegou uma bandeja
-              de tipos e os embaralhou para fazer um livro de modelos de tipos.
-              Lorem Ipsum sobreviveu não só a cinco séculos, como também ao
-              salto para a editoração eletrônica, permanecendo essencialmente
-              inalterado. Se popularizou na década de 60, quando a Letraset
-              lançou decalques contendo passagens de Lorem Ipsum, e mais
-              recentemente quando passou a ser integrado a softwares de
-              editoração eletrônica como Aldus PageMaker.
+              Address:{" "}
+              {nftCollectionSearched &&
+                nftCollectionSearched[0].collection_contract_address}
+            </CollectionItem>
+            <CollectionItem>
+              Name:{" "}
+              {nftCollectionSearched &&
+                nftCollectionSearched[0].collection_moralis_name}
+            </CollectionItem>
+            <CollectionItem>
+              Size:{" "}
+              {nftCollectionSearched &&
+                nftCollectionSearched[0].collection_moralis_data.length}{" "}
+              NFT's
             </CollectionItem>
           </CollectionDataContainer>
           <CustomCollectionContainer>
@@ -110,32 +87,89 @@ const CustomizedCollectionById: React.FC = () => {
             <CustomCollectionDualItem>
               <CollectionItem>
                 <VoteContainer>
-                  Average Note: <strong>4 / 5</strong>
+                  Average Note:{" "}
+                  <strong>{votes && votes.average_votes} / 5</strong>
                 </VoteContainer>
               </CollectionItem>
-              <CustomCollectionButtonContainer>
-                <CustomCollectionButton>Finish</CustomCollectionButton>
-              </CustomCollectionButtonContainer>
             </CustomCollectionDualItem>
             <VoteStarsContainer>
+              {voteNumber}
               {[...Array(5)].map((_, i) => (
-                <StarOutlined isFilled={i + 1 <= votes} />
+                <StarOutlined
+                  onChange={() => setVoteNumber(i + 1)}
+                  isFilled={voteNumber >= i + 1}
+                />
               ))}
             </VoteStarsContainer>
+            <Accordion
+              style={{ background: "red !important" }}
+              defaultActiveKey="0"
+              flush
+            >
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>Comments</Accordion.Header>
+                <Accordion.Body>
+                  <CommentContainer>
+                    <SearchInputContainer>
+                      <i
+                        style={{ color: "white" }}
+                        className="fa fa-comments"
+                        aria-hidden="true"
+                      ></i>
+                      <SearchInput
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Make a comment"
+                      />
+                    </SearchInputContainer>
+                  </CommentContainer>
+                  <CommentContainer>
+                    {votes &&
+                      votes.comments.map((comment) => {
+                        if (comment.message && comment.message !== "") {
+                          return (
+                            <CommentSubContainer>
+                              {comment.message}
+                            </CommentSubContainer>
+                          );
+                        }
+                      })}
+                  </CommentContainer>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+            <CustomCollectionButtonContainer>
+              <CustomCollectionButton
+                onClick={() => {
+                  const data: CreateVote = {
+                    comment: { vote: 1, voter_wallet: id, message: comment },
+                    vote_number: voteNumber,
+                    collectionAddress:
+                      nftCollectionSearched[0].collection_contract_address,
+                    walletAddress: id,
+                  };
+                  createVoteCollection(data);
+                }}
+              >
+                Send vote and comment
+              </CustomCollectionButton>
+            </CustomCollectionButtonContainer>
           </CustomCollectionContainer>
           <ListNFTContainer>
             <Row xs={1} md={2} lg={3} className="g-4">
-              {data.map((item) => (
-                <Col key={item.id} xs={12} md={6}>
-                  <ProductCard
-                    imageSrc={item.image}
-                    title={item.name}
-                    price={item.price}
-                    toggleCardSelection={() => toggleCardSelection(item.id)}
-                    isSelected={isNFTSelected(item.id)}
-                  />
-                </Col>
-              ))}
+              {nftCollectionSearched &&
+                nftCollectionSearched[0].collection_moralis_data.map(
+                  (item: MoralisNFT) => {
+                    return (
+                      <Col key={item.token_id} xs={12} md={6}>
+                        <ProductCard
+                          imageSrc={item.metadata.image}
+                          title={item.metadata.name}
+                          price={item.metadata.points.amount}
+                        />
+                      </Col>
+                    );
+                  }
+                )}
             </Row>
           </ListNFTContainer>
           {/*

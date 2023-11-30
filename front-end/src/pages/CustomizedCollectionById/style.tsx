@@ -29,6 +29,19 @@ export const VoteStarsContainer = styled(CustomCollectionDualItem)`
   }
 `;
 
+export const CommentContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const CommentSubContainer = styled.div`
+  padding: 12px 0;
+  border-bottom: 1px solid white;
+  font-size: 12px;
+`;
+
 interface StarProps {
   isFilled: boolean;
 }
