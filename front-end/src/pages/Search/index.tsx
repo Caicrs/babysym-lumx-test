@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { ButtonSearch, SearchContainer, SearchInput, SearchInputContainer } from "./style";
+import { useApi } from "../../contexts/apiContext";
+import { useNavigate } from "react-router-dom";
 
 const Search: React.FC = () => {
+  const [search, setSearch] = useState<string>("");
+  const navigate = useNavigate()
   return (
     <SearchContainer>
       <SearchInputContainer>
@@ -10,9 +14,9 @@ const Search: React.FC = () => {
           className="fa fa-search"
           aria-hidden="true"
         ></i>
-        <SearchInput placeholder="Enter the collection contract address" />
+        <SearchInput onChange={(e) => setSearch(e.target.value)} placeholder="Enter the collection contract address" />
       </SearchInputContainer>
-      <ButtonSearch>Search</ButtonSearch>
+      <ButtonSearch onClick={() => navigate(`/collection/${search}`)}>Search</ButtonSearch>
     </SearchContainer>
   );
 };

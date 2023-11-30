@@ -6,7 +6,7 @@ export const SearchContainer = styled.div`
   gap: 32px;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   @media (max-width: 700px) {
     padding: 0px 22px;
@@ -38,7 +38,7 @@ export const SearchInput = styled.input`
   font-weight: 200;
   min-width: 500px;
   &::placeholder {
-    color: #9f8fc1;
+    color: white;
     opacity: 0.7;
     font-weight: 200;
   }
