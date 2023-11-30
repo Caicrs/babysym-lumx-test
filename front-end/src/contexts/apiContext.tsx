@@ -30,7 +30,7 @@ interface ContextProps {
 export const ApiContext = createContext<ContextProps>({} as ContextProps);
 
 export const ApiProvider = ({ children }: any) => {
-  const { setIsLoading, wallet, setIsModalOpened, connectWallet } =
+  const { setIsLoading, wallet, setIsModalOpened } =
     useGeneral();
   const [nftCollectionSearched, setNftCollectionSearched] = useState<any>(null);
   const [votes, setVotes] = useState<VotesBody>();
@@ -70,7 +70,7 @@ export const ApiProvider = ({ children }: any) => {
           },
         ],
       };
-      const response = await createDataByWallet(data).then((res) => res);
+      await createDataByWallet(data).then((res) => res);
       setIsLoading(false);
       setIsModalOpened({
         title: "Share link",
@@ -90,7 +90,7 @@ export const ApiProvider = ({ children }: any) => {
   async function createVoteCollection(data: CreateVote) {
     setIsLoading(true);
     try {
-      const response = await createVoteByCollection(data).then((res) => res);
+      await createVoteByCollection(data).then((res) => res);
       setIsLoading(false);
       window.location.reload();
     } catch (error) {

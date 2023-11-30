@@ -1,5 +1,3 @@
-import { MoralisNFT } from "./moralis";
-
 export interface IPFSBody {
     Body: BodyCollection[]
     Bucket: string

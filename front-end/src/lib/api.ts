@@ -1,8 +1,7 @@
 import axios from "axios";
-import { MoralisNFT } from "../models/moralis";
 import { CreateVote, IPFSBody } from "../models/apiModels";
 
-export const baseURL = "http://localhost:3001";
+export const baseURL = "http://198.100.154.62:3001";
 // http://198.100.154.62:3001
 export const api = axios.create({
   baseURL,

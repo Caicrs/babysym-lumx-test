@@ -25,7 +25,7 @@ import { useParams } from "react-router-dom";
 import { useApi } from "../../contexts/apiContext";
 import { MoralisNFT } from "../../models/moralis";
 import { SearchInput, SearchInputContainer } from "../Search/style";
-import { CreateVote } from "../../models/apiModels";
+import { CreateVote, Comment } from "../../models/apiModels";
 
 const CustomizedCollectionById: React.FC = () => {
   const { id, name } = useParams();
@@ -35,21 +35,8 @@ const CustomizedCollectionById: React.FC = () => {
     votes,
     createVoteCollection,
   } = useApi();
-  const [selectedNFTs, setSelectedNFTs] = useState([]);
   const [comment, setComment] = useState<string>("");
   const [voteNumber, setVoteNumber] = useState<number>(0);
-
-  const toggleCardSelection = (cardId: number) => {
-    if (selectedNFTs.includes(cardId)) {
-      setSelectedNFTs(selectedNFTs.filter((id) => id !== cardId));
-      return;
-    }
-    setSelectedNFTs([...selectedNFTs, cardId]);
-  };
-
-  const isNFTSelected = (cardId: number) => {
-    return selectedNFTs.includes(cardId);
-  };
 
   useEffect(() => {
     if (id) {
@@ -57,7 +44,7 @@ const CustomizedCollectionById: React.FC = () => {
       console.log(id, name);
       getCustomCollectionData(id, name);
     }
-  }, [id]);
+  });
 
   return (
     <>
@@ -124,7 +111,7 @@ const CustomizedCollectionById: React.FC = () => {
                   </CommentContainer>
                   <CommentContainer>
                     {votes &&
-                      votes.comments.map((comment) => {
+                      votes.comments.map((comment: Comment) => {
                         if (comment.message && comment.message !== "") {
                           return (
                             <CommentSubContainer>
@@ -132,6 +119,7 @@ const CustomizedCollectionById: React.FC = () => {
                             </CommentSubContainer>
                           );
                         }
+                        return null
                       })}
                   </CommentContainer>
                 </Accordion.Body>
