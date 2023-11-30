@@ -14,9 +14,12 @@ interface ContextProps {
   wallet: WalletProps;
   setWallet: React.Dispatch<React.SetStateAction<WalletProps>>;
   connectWallet: () => void;
+  loading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface ModalOpenedProps {
   opened: boolean;
+  title: string;
   body: React.JSX.Element;
 }
 
@@ -30,7 +33,7 @@ export const GeneralContext = createContext<ContextProps>({} as ContextProps);
 export const GeneralProvider = ({ children }: any) => {
   const [isOpenState, setIsOpen] = useState(false);
   const [loading, setIsLoading] = useState(false);
-  const [modalOpened, setIsModalOpened] = useState({
+  const [modalOpened, setIsModalOpened] = useState<ModalOpenedProps>({
     opened: false,
     title: "Share link",
     body: <SubmodalShareLink />,
@@ -48,15 +51,25 @@ export const GeneralProvider = ({ children }: any) => {
     // Asking if metamask is already present or not
     if (window.ethereum) {
       // res[0] for fetching a first wallet
-      window.ethereum.request({ method: "eth_requestAccounts" }).then(
-        (res) => getbalance(res) // accountChangeHandler(res[0])
-      ).catch((err) => {console.log(err)});
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then(
+          (res) => {
+            getbalance(res);
+            return res;
+          } // accountChangeHandler(res[0])
+        )
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       setIsModalOpened({
         title: "Alert",
         opened: true,
-        body: <h3 style={{textAlign:'start'}}>Install the metamask extension</h3>,
-      })
+        body: (
+          <h3 style={{ textAlign: "start" }}>Install the metamask extension</h3>
+        ),
+      });
     }
   };
 
@@ -75,6 +88,10 @@ export const GeneralProvider = ({ children }: any) => {
           address: address[0],
           balance: ethers.formatEther(balance),
         });
+        return {
+          address: address[0],
+          balance: ethers.formatEther(balance),
+        };
       });
   };
 
@@ -82,12 +99,14 @@ export const GeneralProvider = ({ children }: any) => {
     if (wallet.address == "") {
       connectWallet();
     }
-  });
+  }, [wallet.address]);
 
   return (
     <GeneralContext.Provider
       value={{
         connectWallet,
+        loading,
+        setIsLoading,
         wallet,
         setWallet,
         modalOpened,
